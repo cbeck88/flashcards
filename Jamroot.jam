@@ -1,0 +1,14 @@
+project : default-build release ;
+
+INSTALL_LOC = <location>stage/ ;
+
+alias headers : : : : <include>src/ ;
+
+# TODO: Work around this on windows
+GNU_FLAGS = "-Wall -Werror -Wextra -pedantic -std=c++11" ;
+FLAGS = <toolset>gcc:<cxxflags>$(GNU_FLAGS) <toolset>clang:<cxxflags>$(GNU_FLAGS) <toolset>msvc:<warnings-as-errors>"off" ;
+
+exe flash : src/main.cpp headers : $(FLAGS) ;
+
+install install-bin : flash : $(INSTALL_LOC) ;
+
